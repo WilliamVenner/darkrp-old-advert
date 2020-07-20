@@ -1,4 +1,9 @@
 local function init()
+	if not DarkRP then
+		print("DarkRP Classic Advert tried to run, but DarkRP wasn't declared!")
+		return
+	end
+
 	DarkRP.removeChatCommand("advert")
 	DarkRP.declareChatCommand({
 		command = "advert",
