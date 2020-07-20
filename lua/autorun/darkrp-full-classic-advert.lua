@@ -10,6 +10,7 @@ local function init()
 		description = "Displays an advertisement to everyone in chat.",
 		delay = 1.5
 	})
+	
 	if SERVER then
 		DarkRP.defineChatCommand("advert",function(ply,args)
 			if args == "" then
@@ -29,6 +30,8 @@ local function init()
 			hook.Call("playerAdverted", nil, ply, args)
 			return args, DoSay
 		end, 1.5)
+	else
+		DarkRP.addChatReceiver("/advert", "advertise", function(ply) return true end)
 	end
 end
 
