@@ -1,6 +1,6 @@
 local function init()
 	if not DarkRP then
-		print("DarkRP Classic Advert tried to run, but DarkRP wasn't declared!")
+		MsgC(Color(255,0,0), "DarkRP Classic Advert tried to run, but DarkRP wasn't declared!\n")
 		return
 	end
 
@@ -10,7 +10,7 @@ local function init()
 		description = "Displays an advertisement to everyone in chat.",
 		delay = 1.5
 	})
-	if (SERVER) then
+	if SERVER then
 		DarkRP.defineChatCommand("advert",function(ply,args)
 			if args == "" then
 				DarkRP.notify(ply, 1, 4, DarkRP.getPhrase("invalid_x", "argument", ""))
@@ -28,19 +28,16 @@ local function init()
 			end
 			hook.Call("playerAdverted", nil, ply, args)
 			return args, DoSay
-		end,1.5)
+		end, 1.5)
 	end
 end
-if (SERVER) then
-	if (#player.GetAll() > 0) then
+
+if SERVER then
+	if #player.GetAll() > 0 then
 		init()
 	else
-		hook.Add("PlayerInitialSpawn","dfca-load",function()
-			init()
-		end)
+		hook.Add("PlayerInitialSpawn", "dfca-load", init)
 	end
 else
-	hook.Add("InitPostEntity","dfca-load",function()
-		init()
-	end)
+	hook.Add("InitPostEntity", "dfca-load", init)
 end
